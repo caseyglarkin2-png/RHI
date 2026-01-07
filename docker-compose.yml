@@ -1,0 +1,17 @@
+services:
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - RHI_FRONTEND_ORIGIN=http://localhost:3000
+      - RHI_BASELINE_YEARS=5
+
+  web:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api/v1
+    depends_on:
+      - api
